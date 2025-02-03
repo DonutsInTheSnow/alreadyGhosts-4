@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Already Ghosts - Landing</title>
+  <meta name="description" content="Watch a 13-second video intro to ALREADY GHOSTS before entering the main site.">
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+  <link href="assets/css/landing.css" rel="stylesheet">
+</head>
+
+<body>
+  <section class="landing">
+    <div>
+      <a href="main.html" id="videoLink" aria-label="Click to go to main page">
+        <img src="assets/img/ag-logo-trans.png" width="300" height="300" id="logoImage" class="logo" />
+        <div class="hint-text">To enter the website, click or tap the icon above</div>
+        <video id="iconVideo" style="display:none;" preload="metadata">
+          <source src="assets/img/enterBomb_compressed.mp4" type="video/mp4" media="(min-width: 768px)">
+          <source src="assets/img/enterBombMobile_compressed.mp4" type="video/mp4" media="(max-width: 767px)">
+        </video>
+      </a>
+    </div>    
+  </section>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var videoLink = document.getElementById('videoLink');
+      var logoImage = document.getElementById('logoImage');
+      var videoElement = document.getElementById('iconVideo');
+
+      videoLink.addEventListener('click', function(e) {
+        e.preventDefault();
+        setTimeout(function() {
+          logoImage.style.display = 'none';
+          videoElement.style.display = 'block';
+          videoElement.play();
+
+          videoElement.addEventListener('ended', function() {
+            window.location.href = 'main.html';
+          });
+
+          // Request full screen
+          var requestFullScreen = videoElement.requestFullscreen || 
+            videoElement.mozRequestFullScreen || 
+            videoElement.webkitRequestFullScreen;
+          if (requestFullScreen) {
+            requestFullScreen.call(videoElement);
+          }
+        }, 500);
+      });
+    });
+  </script>
+</body>
+
+</html>
